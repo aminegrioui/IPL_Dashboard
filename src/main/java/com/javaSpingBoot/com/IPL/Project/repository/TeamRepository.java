@@ -1,0 +1,9 @@
+package com.javaSpingBoot.com.IPL.Project.repository;
+
+import com.javaSpingBoot.com.IPL.Project.model.Team;
+import org.springframework.data.repository.CrudRepository;
+
+public interface TeamRepository extends CrudRepository<Team,Long> {
+
+    Team findByTeamName(String teamName);
+}

@@ -7,12 +7,10 @@ import com.javaSpingBoot.com.IPL.Project.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -33,4 +31,19 @@ public class TeamController {
         team.setMatches(matches);
         return  team;
     }
+
+    @GetMapping("/team/{teamName}/matches")
+    public List<Match> getMatchesForTame(@PathVariable String teamName, @RequestParam int year){
+        LocalDate start=LocalDate.of(year,1,1);
+        LocalDate end=LocalDate.of(year + 1,1,1);
+
+        // using API og JPA
+     /*   return  this.matchRepository.findByTeam1AndDateBetweenOrTeam2AndDateBetweenOrderByDateDesc(teamName,
+                start,end,teamName,start,end);*/
+
+        return  this.matchRepository.getMatchesBetweenDate(teamName,start,end);
+
+    }
+
+
 }
